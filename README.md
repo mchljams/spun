@@ -1,7 +1,7 @@
 Spun
 =====
 
-Content spinning library.
+PHP string/text spinning library using spintax.
 
 How To Use
 -----
@@ -19,3 +19,10 @@ $new_string = $spun->spin();
 ```
 This is a string that holds choices you can spin.
 ```
+
+Proposed Features
+----
+1. Nesting
+2. Confugurable Syntax (Use delimeters other than curly braces)
+3. Configurable Spin Type (Currently random, with skeleton for first and last in place. Another idea may be some sort of alphabetical choice.)
+4. Extendable Spin Type, hooks to allow new custom spin types.
