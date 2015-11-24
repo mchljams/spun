@@ -106,13 +106,3 @@ class Spun {
 		return $this->str;
 	}
 }
-
-//////////////
-// how to use
-/////////////
-
-$spun = new Spun;
-
-$spun->str = "This is a string that {includes|contains|holds} choices you can spin.";
-
-$new_string = $spun->spin();
