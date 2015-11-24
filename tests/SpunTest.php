@@ -1,18 +1,15 @@
 <?php
 
-namespace Spun\Test;
-
-use Spun;
+include './src/Spun.php';
 
 class SpunTest extends \PHPUnit_Framework_TestCase
 {
 
-	protected $spun;
+	protected $str;
 
 
 	public function setUp()
 	{
-		$this->spun = new Spun;
 		$this->str = "This is a string that {includes|contains|holds} choices you can spin."; 
 	}
 
@@ -29,7 +26,8 @@ class SpunTest extends \PHPUnit_Framework_TestCase
 
 	public function testRemoveAnchorsReturnsString()
 	{
-		$str = $this->spun->removeAnchors('{Test String Here}');
+		$spun = new Spun;
+		$str = $spun->removeAnchors('{Test String Here}');
 		$this->assertInternalType('string', $str);
 	}
 }

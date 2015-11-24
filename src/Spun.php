@@ -1,7 +1,5 @@
 <?php
 
-namespace Spun;
-
 class Spun {
 	
 	public $str;
