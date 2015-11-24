@@ -1,5 +1,7 @@
 <?php
 
+namespace Spun;
+
 class Spun {
 	
 	public $str;
@@ -26,7 +28,7 @@ class Spun {
 	} 
 
 	/* removing opening and closing characters */
-	function remove_anchors($str) {
+	function removeAnchors($str) {
 
 		// trim opening char
 		$str = trim($str, $this->oa);
@@ -34,11 +36,10 @@ class Spun {
 		$str = trim($str, $this->ca);
 
 		return $str;
-
 	}
 
 	/* Look through the input string for any spin candidates */
-	function get_candidates($str) {
+	function getCandidates($str) {
 
 		// paatter for matching replacement strings
 		// $pattern = '#\{[^}]*\}#s';
@@ -51,8 +52,8 @@ class Spun {
 
 	}
 
-	/* takes a string separated by a specified separator and splits it, returns array of */
-	function get_choices($candidate, $separator) {
+	/* takes a string separated by a specified separator and splits it, returns array of candidate strings */
+	function getChoices($candidate, $separator) {
 
 		// convert string to array of choices
 		$choices = explode($this->sc, $candidate);
@@ -61,7 +62,7 @@ class Spun {
 	}
 
 	/* get random string from array of strings */
-	function choose_random($choices) {
+	function chooseRandom($choices) {
 
 		// get number of choices
 		$num_choices = count($choices);
@@ -76,7 +77,7 @@ class Spun {
 
 	}
 
-	function choose_first($choices) {
+	function chooseFirst($choices) {
 
 		$choice = reset($choices);
 
@@ -84,7 +85,7 @@ class Spun {
 
 	}
 
-	function choose_last($choices) {
+	function chooseLast($choices) {
 
 		$choice = end($choices);
 
@@ -92,9 +93,9 @@ class Spun {
 	}
 
 	/* for now just use random, but will be configurable for other options */
-	function choose_word($choices, $type = 'random') {
+	function chooseWord($choices, $type = 'Random') {
 
-		$choice = call_user_func(array($this, 'choose_' . $type), $choices);
+		$choice = call_user_func(array($this, 'choose' . $type), $choices);
 
 		return $choice;
 	}
@@ -102,7 +103,7 @@ class Spun {
 	function spin() {
 
 		// identify the candidate groups from the input string
-		$candidates = self::get_candidates($this->str);
+		$candidates = self::getCandidates($this->str);
 
 		// loop through candidates to make replacements
 		foreach($candidates as $key => $candidate){
@@ -111,13 +112,13 @@ class Spun {
 			$match_candidate = $candidate;
 
 			// remove anchor characters
-			$candidate = self::remove_anchors($candidate);
+			$candidate = self::removeAnchors($candidate);
 
 			// get choices from candidate string
-			$choices = self::get_choices($candidate, $this->sc);
+			$choices = self::getChoices($candidate, $this->sc);
 
 			// get choice
-			$choice = self::choose_word($choices, $this->type);
+			$choice = self::chooseWord($choices, $this->type);
 
 			// replace candidate string with choice
 			$this->str = str_replace($match_candidate, $choice, $this->str);

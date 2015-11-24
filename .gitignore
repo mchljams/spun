@@ -1,0 +1,3 @@
+
+# exclude the composer vendor directory
+vendor/
