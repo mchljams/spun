@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit colors="true">
+<phpunit bootstrap="index.php" colors="true">
     <testsuites>
         <testsuite name="Spun Test Suite">
             <directory>./tests/</directory>
