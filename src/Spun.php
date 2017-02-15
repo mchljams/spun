@@ -3,7 +3,7 @@
 class Spun {
 
 	private $str;
-	private $type = 'random';
+	private $type;
 
 	// opening anchor
 	private $oa = '{';
@@ -15,6 +15,20 @@ class Spun {
 	function __construct($str, $type = 0) {
 		// set the string
 		$this->str = $str;
+		// set the type
+		$this->type = self::setType($type);
+	}
+
+	protected function setType($type = 0) {
+		switch($type) {
+			case 2:
+				return 'Last';
+			case 1:
+				return 'First';
+			case 0:
+			default:
+				return 'Random';
+		}
 	}
 
 	/* removing opening and closing characters */
@@ -75,7 +89,7 @@ class Spun {
 	}
 
 	/* for now just use random, but will be configurable for other options */
-	private function chooseWord($choices, $type = 'Random') {
+	private function chooseWord($choices, $type) {
 		// choose function determined by type input
 		$choice = call_user_func(array($this, 'choose' . $type), $choices);
 		// return the selected choice
