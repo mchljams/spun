@@ -1,33 +1,24 @@
 <?php
 
 class Spun {
-	
-	public $str;
-	public $type = 'random';
 
-	public $opening_anchor = '{';
-	public $closing_anchor = '}';
-	public $separator_char = '|';
+	private $str;
+	private $type = 'random';
 
-	// Define shorter names for interal use
-	private $oa;
-	private $ca;
-	private $sc;
+	// opening anchor
+	private $oa = '{';
+	// closing anchor
+	private $ca = '}';
+	// separation character
+	private $sc = '|';
 
-	private $candidates = null;
-
-
-	function __construct() {
-
-		$this->oa = $this->opening_anchor;
-		$this->ca = $this->closing_anchor;
-		$this->sc = $this->separator_char;	
-
-	} 
+	function __construct($str, $type = 0) {
+		// set the string
+		$this->str = $str;
+	}
 
 	/* removing opening and closing characters */
-	function removeAnchors($str) {
-
+	private function removeAnchors($str) {
 		// trim opening char
 		$str = trim($str, $this->oa);
 		// trim closing char
@@ -37,22 +28,19 @@ class Spun {
 	}
 
 	/* Look through the input string for any spin candidates */
-	function getCandidates($str) {
-
+	private function getCandidates($str) {
 		// paatter for matching replacement strings
 		// $pattern = '#\{[^}]*\}#s';
 		$pattern = '#' . $this->oa . '[^' . $this->ca . ']*' . $this->ca . '#s';
-		
 		// match groups in input string surrounded by anchor characters
-		preg_match_all($pattern, $str, $candidates); 
+		preg_match_all($pattern, $str, $candidates);
 		// return just the matches
 		return $candidates[0];
 
 	}
 
 	/* takes a string separated by a specified separator and splits it, returns array of candidate strings */
-	function getChoices($candidate, $separator) {
-
+	private function getChoices($candidate, $separator) {
 		// convert string to array of choices
 		$choices = explode($this->sc, $candidate);
 
@@ -60,22 +48,18 @@ class Spun {
 	}
 
 	/* get random string from array of strings */
-	function chooseRandom($choices) {
-
+	private function chooseRandom($choices) {
 		// get number of choices
 		$num_choices = count($choices);
-
 		// generate a random number based on the number of choices
 		$random_number = (rand(1, $num_choices)) - 1;
-
 		// make a choice from the array
 		$choice = $choices[$random_number];
 
 		return $choice;
-
 	}
 
-	function chooseFirst($choices) {
+	private function chooseFirst($choices) {
 
 		$choice = reset($choices);
 
@@ -83,7 +67,7 @@ class Spun {
 
 	}
 
-	function chooseLast($choices) {
+	private function chooseLast($choices) {
 
 		$choice = end($choices);
 
@@ -91,39 +75,33 @@ class Spun {
 	}
 
 	/* for now just use random, but will be configurable for other options */
-	function chooseWord($choices, $type = 'Random') {
-
+	private function chooseWord($choices, $type = 'Random') {
+		// choose function determined by type input
 		$choice = call_user_func(array($this, 'choose' . $type), $choices);
-
+		// return the selected choice
 		return $choice;
 	}
 
-	function spin() {
-
+	public function spin() {
 		// identify the candidate groups from the input string
 		$candidates = self::getCandidates($this->str);
-
+		// variable to hold new string as changes are made
+		$new_str = $this->str;
 		// loop through candidates to make replacements
 		foreach($candidates as $key => $candidate){
-
 			// store candidate match with anchor characters for replacement
 			$match_candidate = $candidate;
-
 			// remove anchor characters
 			$candidate = self::removeAnchors($candidate);
-
 			// get choices from candidate string
 			$choices = self::getChoices($candidate, $this->sc);
-
 			// get choice
 			$choice = self::chooseWord($choices, $this->type);
-
 			// replace candidate string with choice
-			$this->str = str_replace($match_candidate, $choice, $this->str);
-
+			$new_str = str_replace($match_candidate, $choice, $new_str);
 		}
-
-		return $this->str;
+		// return the string with all substitutions made
+		return $new_str;
 	}
 }
 
