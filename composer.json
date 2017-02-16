@@ -5,9 +5,8 @@
 				"squizlabs/php_codesniffer": "2.8.0"
     },
     "autoload": {
-    	"psr-0": {
-    		"Spun": 	   "src/",
-    		"Spun\\Tests": "src/tests/"
+    	"psr-4": {
+    		"Spun\\": 	   "src/"
     	}
     }
 }
