@@ -12,7 +12,11 @@ class Spun {
 	// separation character
 	private $sc = '|';
 
-	function __construct($str, $type = 0) {
+	function __construct($str = null, $type = 0) {
+
+		if(!is_string($str)) {
+			throw new Exception('You must start with a string.');
+		}
 		// set the string
 		$this->str = $str;
 		// set the type
@@ -111,35 +115,21 @@ class Spun {
 		return $choices;
 	}
 
-	public function combinations($choices = null, $permutations = array(), $i = 0){
-
-		if($i == 0 && $choices == null) {
-			$choices = self::getChoicesAsArray();
-
-			foreach($choices[$i] as $choice) {
-				$permutations[] = array($choice);
-			}
-		} else {
-			// hold on to permutations from last iteration
-			$old_permutations = $permutations;
-			// reset permutations to empty array
-			$permutations = array();
-			// loop though choices
-			foreach($choices[$i] as $choice) {
-				// loop thought the permutations from the last iteration
-				foreach($old_permutations as $permutation) {
-					// add the choice on to the end of the array
-					$permutations[] = array_push($permutation, $choice);
-				}
-			}
+	/**
+	 * Calculate by Rule of Product
+	 */
+	public function combinations(){
+		// initialze at 1 because object must always be instatiated with a string
+		$total = 1;
+		// get the choices as an array so it is easy to loop through
+		$choices = self::getChoicesAsArray();
+		// loop through the choices
+		foreach ($choices as $choice) {
+			// multiply the total by number in each set
+			$total = $total * count($choice);
 		}
-
-		if(count($choices) > 1) {
-			// send next group throught the function recursively
-			self::combinations($choices, $permutations, $i++);
-		}
-
-		return count($permutations);
+		// return the total number of combinations
+		return $total;
 	}
 
 	public function spin() {
