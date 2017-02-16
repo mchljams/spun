@@ -4,6 +4,7 @@ class Spun {
 
 	private $str;
 	private $type;
+	private $fingerprint = array();
 
 	// opening anchor
 	private $oa = '{';
@@ -73,6 +74,8 @@ class Spun {
 		$random_number = (rand(1, $num_choices)) - 1;
 		// make a choice from the array
 		$choice = $choices[$random_number];
+		// add choice index into fingerprint
+		$this->fingerprint[] = $random_number;
 
 		return $choice;
 	}
@@ -130,6 +133,32 @@ class Spun {
 		}
 		// return the total number of combinations
 		return $total;
+	}
+
+	public function fingerprint(){
+		return $this->fingerprint;
+	}
+
+	public function repeat($fingerprint) {
+		// identify the candidate groups from the input string
+		$candidates = self::getCandidates($this->str);
+		// variable to hold new string as changes are made
+		$new_str = $this->str;
+		// loop through candidates to make replacements
+		foreach($candidates as $key => $candidate){
+			// store candidate match with anchor characters for replacement
+			$match_candidate = $candidate;
+			// remove anchor characters
+			$candidate = self::removeAnchors($candidate);
+			// get choices from candidate string
+			$choices = self::getChoices($candidate, $this->sc);
+			// get choice
+			$choice = $choices[$fingerprint[$key]];
+			// replace candidate string with choice
+			$new_str = str_replace($match_candidate, $choice, $new_str);
+		}
+		// return the string with all substitutions made
+		return $new_str;
 	}
 
 	public function spin() {
