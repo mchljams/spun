@@ -96,6 +96,52 @@ class Spun {
 		return $choice;
 	}
 
+	private function getChoicesAsArray(){
+		$candidates = self::getCandidates($this->str);
+		// create empty array to fill with all choices
+		$choices = [];
+		// loop through candidates and add each group of choices as array
+		foreach($candidates as $key => $candidate){
+			// remove anchor characters
+			$candidate = self::removeAnchors($candidate);
+			// get choices from candidate string
+			$choices[] = self::getChoices($candidate, $this->sc);
+		}
+
+		return $choices;
+	}
+
+	public function combinations($choices = null, $permutations = array(), $i = 0){
+
+		if($i == 0 && $choices == null) {
+			$choices = self::getChoicesAsArray();
+
+			foreach($choices[$i] as $choice) {
+				$permutations[] = array($choice);
+			}
+		} else {
+			// hold on to permutations from last iteration
+			$old_permutations = $permutations;
+			// reset permutations to empty array
+			$permutations = array();
+			// loop though choices
+			foreach($choices[$i] as $choice) {
+				// loop thought the permutations from the last iteration
+				foreach($old_permutations as $permutation) {
+					// add the choice on to the end of the array
+					$permutations[] = array_push($permutation, $choice);
+				}
+			}
+		}
+
+		if(count($choices) > 1) {
+			// send next group throught the function recursively
+			self::combinations($choices, $permutations, $i++);
+		}
+
+		return count($permutations);
+	}
+
 	public function spin() {
 		// identify the candidate groups from the input string
 		$candidates = self::getCandidates($this->str);
