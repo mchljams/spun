@@ -16,7 +16,7 @@ class Spun
     // separation character
     private $sc = '|';
 
-    protected function __construct($str = null)
+    public function __construct($str = null)
     {
 
         if (!is_string($str)) {
