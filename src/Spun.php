@@ -1,10 +1,13 @@
 <?php
+namespace Spun;
+
+Use Spun\Fingerprint;
 
 class Spun {
 
 	private $str;
 	private $type;
-	private $fingerprint = array();
+	private $sequence = array();
 
 	// opening anchor
 	private $oa = '{';
@@ -34,6 +37,14 @@ class Spun {
 			default:
 				return 'Random';
 		}
+	}
+
+	public function getStr() {
+		return $this->str;
+	}
+
+	public function getSequence() {
+		return $this->sequence;
 	}
 
 	/* removing opening and closing characters */
@@ -75,7 +86,7 @@ class Spun {
 		// make a choice from the array
 		$choice = $choices[$random_number];
 		// add choice index into fingerprint
-		$this->fingerprint[] = $random_number;
+		$this->sequence[] = $random_number;
 
 		return $choice;
 	}
@@ -135,30 +146,44 @@ class Spun {
 		return $total;
 	}
 
-	public function fingerprint(){
-		return $this->fingerprint;
+	public function fingerprint() {
+		return new Fingerprint($this);
 	}
 
-	public function repeat($fingerprint) {
-		// identify the candidate groups from the input string
-		$candidates = self::getCandidates($this->str);
-		// variable to hold new string as changes are made
-		$new_str = $this->str;
-		// loop through candidates to make replacements
-		foreach($candidates as $key => $candidate){
-			// store candidate match with anchor characters for replacement
-			$match_candidate = $candidate;
-			// remove anchor characters
-			$candidate = self::removeAnchors($candidate);
-			// get choices from candidate string
-			$choices = self::getChoices($candidate, $this->sc);
-			// get choice
-			$choice = $choices[$fingerprint[$key]];
-			// replace candidate string with choice
-			$new_str = str_replace($match_candidate, $choice, $new_str);
+	public function sequence() {
+		return $this->sequence;
+	}
+
+	public function repeat($json) {
+
+		if ($this->fingerprint()->compare($json)) {
+
+			$fingerprint = json_decode($json);
+			$sequence = $fingerprint[1];
+
+
+			// identify the candidate groups from the input string
+			$candidates = self::getCandidates($this->str);
+			// variable to hold new string as changes are made
+			$new_str = $this->str;
+			// loop through candidates to make replacements
+			foreach($candidates as $key => $candidate){
+				// store candidate match with anchor characters for replacement
+				$match_candidate = $candidate;
+				// remove anchor characters
+				$candidate = self::removeAnchors($candidate);
+				// get choices from candidate string
+				$choices = self::getChoices($candidate, $this->sc);
+				// get choice
+				$choice = $choices[$sequence[$key]];
+				// replace candidate string with choice
+				$new_str = str_replace($match_candidate, $choice, $new_str);
+			}
+			// return the string with all substitutions made
+			return $new_str;
+		} else {
+			throw new Exception('Fingerprint does not match');
 		}
-		// return the string with all substitutions made
-		return $new_str;
 	}
 
 	public function spin() {
