@@ -1,7 +1,7 @@
 <?php
-namespace Spun;
+namespace Mchljams\Spun;
 
-use Spun\Spun;
+use Mchljams\Spun\Spun;
 
 class Fingerprint
 {
