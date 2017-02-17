@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="index.php" colors="true">
+    <filter>
+      <blacklist>
+        <directory>./vendor</directory>
+      </blacklist>
+      <whitelist>
+        <exclude></exclude>
+      </whitelist>
+    </filter>
     <testsuites>
         <testsuite name="Spun Test Suite">
             <directory>./src/Tests/</directory>
