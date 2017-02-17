@@ -24,5 +24,3 @@ Proposed Features
 ----
 1. Nesting
 2. Configurable Syntax (Use delimiters other than curly braces)
-3. Extendable Spin Type, hooks to allow new custom spin types.
-4. Function to analyze string with spin candidates. Perhaps to help optimize, and perhaps just to understand the number or unique combinations.
