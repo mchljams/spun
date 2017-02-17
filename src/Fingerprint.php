@@ -9,7 +9,7 @@ class Fingerprint
     private $hash;
     private $sequence;
 
-    protected function __construct(Spun $spun)
+    public function __construct(Spun $spun)
     {
         $this->hash = md5($spun->getStr());
         $this->sequence = $spun->getSequence();
