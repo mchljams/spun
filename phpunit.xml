@@ -2,7 +2,7 @@
 <phpunit bootstrap="index.php" colors="true">
     <testsuites>
         <testsuite name="Spun Test Suite">
-            <directory>./tests/</directory>
+            <directory>./src/Tests/</directory>
         </testsuite>
     </testsuites>
 </phpunit>
