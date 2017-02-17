@@ -19,7 +19,7 @@ class Spun {
 	function __construct($str = null, $type = 0) {
 
 		if(!is_string($str)) {
-			throw new Exception('You must start with a string.');
+			throw new \Exception('You must start with a string.');
 		}
 		// set the string
 		$this->str = $str;
@@ -182,7 +182,7 @@ class Spun {
 			// return the string with all substitutions made
 			return $new_str;
 		} else {
-			throw new Exception('Fingerprint does not match');
+			throw new \Exception('Fingerprint does not match');
 		}
 	}
 
