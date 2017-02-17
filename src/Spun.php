@@ -122,11 +122,6 @@ class Spun
         return new Fingerprint($this);
     }
 
-    public function sequence()
-    {
-        return $this->sequence;
-    }
-
     public function repeat($json)
     {
         // make sure the fingerprint being used matches the string this
