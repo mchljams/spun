@@ -41,3 +41,13 @@ Change directory to the root of this package and run:
 ```
 ./vendor/bin/phpunit --coverage-html coverage
 ```
+
+Code Linting
+-----
+**Using PHP_CodeSniffer**
+
+Developed using the PSR-2 Standard
+
+```
+./vendor/bin/phpcs --standard=PSR2 ./src
+```
