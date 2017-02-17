@@ -6,7 +6,6 @@ Use Spun\Fingerprint;
 class Spun {
 
 	private $str;
-	private $type;
 	private $sequence = array();
 
 	// opening anchor
@@ -16,27 +15,13 @@ class Spun {
 	// separation character
 	private $sc = '|';
 
-	function __construct($str = null, $type = 0) {
+	function __construct($str = null) {
 
 		if(!is_string($str)) {
 			throw new \Exception('You must start with a string.');
 		}
 		// set the string
 		$this->str = $str;
-		// set the type
-		$this->type = self::setType($type);
-	}
-
-	protected function setType($type = 0) {
-		switch($type) {
-			case 2:
-				return 'Last';
-			case 1:
-				return 'First';
-			case 0:
-			default:
-				return 'Random';
-		}
 	}
 
 	public function getStr() {
@@ -91,29 +76,6 @@ class Spun {
 		return $choice;
 	}
 
-	private function chooseFirst($choices) {
-
-		$choice = reset($choices);
-
-		return $choice;
-
-	}
-
-	private function chooseLast($choices) {
-
-		$choice = end($choices);
-
-		return $choice;
-	}
-
-	/* for now just use random, but will be configurable for other options */
-	private function chooseWord($choices, $type) {
-		// choose function determined by type input
-		$choice = call_user_func(array($this, 'choose' . $type), $choices);
-		// return the selected choice
-		return $choice;
-	}
-
 	private function getChoicesAsArray(){
 		$candidates = self::getCandidates($this->str);
 		// create empty array to fill with all choices
@@ -155,13 +117,13 @@ class Spun {
 	}
 
 	public function repeat($json) {
-
+		// make sure the fingerprint being used matches the string this
+		// instance of the object was created with
 		if ($this->fingerprint()->compare($json)) {
-
+			// convery json back into php array
 			$fingerprint = json_decode($json);
+			// the sequence is the second item in the array
 			$sequence = $fingerprint[1];
-
-
 			// identify the candidate groups from the input string
 			$candidates = self::getCandidates($this->str);
 			// variable to hold new string as changes are made
@@ -200,7 +162,7 @@ class Spun {
 			// get choices from candidate string
 			$choices = self::getChoices($candidate, $this->sc);
 			// get choice
-			$choice = self::chooseWord($choices, $this->type);
+			$choice = self::chooseRandom($choices);
 			// replace candidate string with choice
 			$new_str = str_replace($match_candidate, $choice, $new_str);
 		}
@@ -208,5 +170,3 @@ class Spun {
 		return $new_str;
 	}
 }
-
-?>
