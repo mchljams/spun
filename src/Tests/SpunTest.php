@@ -1,6 +1,6 @@
 <?php
 
-namespace Spun;
+namespace Mchljams\Spun;
 
 class SpunTest extends \PHPUnit_Framework_TestCase
 {
