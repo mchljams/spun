@@ -24,3 +24,19 @@ Proposed Features
 ----
 1. Nesting
 2. Configurable Syntax (Use delimiters other than curly braces)
+
+
+Unit Tests
+-----
+**Run Unit Tests**
+Change directory to the root of this package and run:
+
+```
+./vendor/bin/phpunit
+```
+
+**Run Unit Tests With HTML Coverage Report**
+
+```
+./vendor/bin/phpunit --coverage-html coverage
+```
