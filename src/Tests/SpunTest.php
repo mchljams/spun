@@ -15,6 +15,15 @@ class SpunTest extends \PHPUnit_Framework_TestCase
     {
     }
 
+    public function testConstruct()
+    {
+      $this->expectExceptionMessage('You must start with a string.');
+      $this->expectException('Exception');
+
+      $spun = new Spun(array());
+
+    }
+
     public function testGetStrReturnsString()
     {
         $spun = new Spun($this->one_group);
@@ -55,6 +64,28 @@ class SpunTest extends \PHPUnit_Framework_TestCase
     {
         $spun = new Spun($this->one_group);
         $this->assertInternalType('object', $spun->fingerprint());
+    }
+
+    public function testRepeatReturnsString()
+    {
+        $str = "This is a string that {includes|contains|holds} choices you can spin.";
+        $spun = new Spun($str);
+        $new_str = $spun->spin();
+        $this->assertInternalType('string', $spun->repeat($spun->fingerprint()->get()));
+    }
+
+    public function testRepeatFingerprintException()
+    {
+
+        $this->expectException('Exception');
+        $this->expectExceptionMessage('Fingerprint does not match');
+
+        $str = "This is a string that {includes|contains|holds} choices you can spin.";
+        $spun = new Spun($str);
+        // $new_str = $spun->spin();
+        $spun->repeat(json_encode(array('this is not a fingerprint')));
+
+
     }
 
     //left off at fingerprint method
