@@ -3,6 +3,15 @@ namespace Mchljams\Spun;
 
 use Mchljams\Spun\Fingerprint;
 
+
+/**
+ * This class parses a strign containing spintax syntax.
+ *
+ * @copyright  2017 Michael James
+ * @license    https://opensource.org/licenses/MIT   MIT
+ * @link       https://github.com/mchljams/spun
+ * @since      Class available since Release 0.0.1
+ */
 class Spun
 {
     // the string containing spintax
