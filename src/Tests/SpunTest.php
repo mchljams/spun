@@ -17,11 +17,10 @@ class SpunTest extends \PHPUnit_Framework_TestCase
 
     public function testConstruct()
     {
-      $this->expectExceptionMessage('You must start with a string.');
-      $this->expectException('Exception');
+        $this->expectExceptionMessage('You must start with a string.');
+        $this->expectException('Exception');
 
-      $spun = new Spun(array());
-
+        $spun = new Spun(array());
     }
 
     public function testGetStrReturnsString()
@@ -84,9 +83,5 @@ class SpunTest extends \PHPUnit_Framework_TestCase
         $spun = new Spun($str);
         // $new_str = $spun->spin();
         $spun->repeat(json_encode(array('this is not a fingerprint')));
-
-
     }
-
-    //left off at fingerprint method
 }
