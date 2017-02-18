@@ -25,6 +25,13 @@ class Spun
     // separation character
     private $sc = '|';
 
+    /**
+     * Does something interesting
+     *
+     * @param string   $str  A string that may contain spintax
+     *
+     * @throws Exception if input is not a string
+     */
     public function __construct($str = null)
     {
         // check to make sure input is a string
