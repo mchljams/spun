@@ -5,10 +5,10 @@ use Mchljams\Spun\Fingerprint;
 
 class Spun
 {
-
+    // the string containing spintax
     private $str;
+    // array to add sequence numbers into
     private $sequence = array();
-
     // opening anchor
     private $oa = '{';
     // closing anchor
@@ -18,8 +18,9 @@ class Spun
 
     public function __construct($str = null)
     {
-
+        // check to make sure input is a string
         if (!is_string($str)) {
+            // if its not a string thow an exception
             throw new \Exception('You must start with a string.');
         }
         // set the string
@@ -28,22 +29,24 @@ class Spun
 
     public function getStr()
     {
+        // return the string set when the object was instantiated
         return $this->str;
     }
 
     public function getSequence()
     {
+        // return the sequence array
         return $this->sequence;
     }
 
     /* removing opening and closing characters */
     private function removeAnchors($str)
     {
-        // trim opening char
+        // trim opening character
         $str = trim($str, $this->oa);
-        // trim closing char
+        // trim closing character
         $str = trim($str, $this->ca);
-
+        // return the string without the opening and closing characters
         return $str;
     }
 
@@ -59,12 +62,13 @@ class Spun
         return $candidates[0];
     }
 
-    /* takes a string separated by a specified separator and splits it, returns array of candidate strings */
+    /* takes a string separated by a specified separator and
+    splits it, returns array of candidate strings */
     private function getChoices($candidate, $separator)
     {
         // convert string to array of choices
         $choices = explode($this->sc, $candidate);
-
+        // return the array of choices
         return $choices;
     }
 
@@ -79,12 +83,13 @@ class Spun
         $choice = $choices[$random_number];
         // add choice index into fingerprint
         $this->sequence[] = $random_number;
-
+        // returns the single choice string
         return $choice;
     }
 
     private function getChoicesAsArray()
     {
+        // get the array of choices strings
         $candidates = self::getCandidates($this->str);
         // create empty array to fill with all choices
         $choices = [];
@@ -95,7 +100,7 @@ class Spun
             // get choices from candidate string
             $choices[] = self::getChoices($candidate, $this->sc);
         }
-
+        // return a multidimentional array of all choices from the string
         return $choices;
     }
 
@@ -119,6 +124,8 @@ class Spun
 
     public function fingerprint()
     {
+        // instantiate a new fingerprint object using the
+        // current instance of this object
         return new Fingerprint($this);
     }
 
