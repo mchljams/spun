@@ -3,7 +3,6 @@ namespace Mchljams\Spun;
 
 use Mchljams\Spun\Fingerprint;
 
-
 /**
  * This class parses a strign containing spintax syntax.
  *
