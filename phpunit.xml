@@ -4,8 +4,13 @@
       <blacklist>
         <directory>./vendor</directory>
       </blacklist>
-      <whitelist>
-        <exclude></exclude>
+      <whitelist processUncoveredFilesFromWhitelist="true">
+        <directory suffix=".php">./src</directory>
+        <file>/path/to/file</file>
+        <exclude>
+          <directory suffix=".php">./src/Tests</directory>
+          <file>/path/to/file</file>
+        </exclude>
       </whitelist>
     </filter>
     <testsuites>
