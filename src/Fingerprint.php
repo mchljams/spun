@@ -7,7 +7,7 @@ use Mchljams\Spun\Spun;
  * This class generates a unique JSON string to
  * use when repeating output from a Spun object
  *
- * @copyright  2017 Michael James
+ * @copyright  2021 Michael James
  * @license    https://opensource.org/licenses/MIT   MIT
  * @link       https://github.com/mchljams/spun
  * @since      Class available since Release 0.0.1

@@ -77,13 +77,11 @@ class SpunTest extends TestCase
 
     public function testRepeatFingerprintException()
     {
-
         $this->expectException('Exception');
         $this->expectExceptionMessage('Fingerprint does not match');
 
         $str = "This is a string that {includes|contains|holds} choices you can spin.";
         $spun = new Spun($str);
-        // $new_str = $spun->spin();
         $spun->repeat(json_encode(array('this is not a fingerprint')));
     }
 }

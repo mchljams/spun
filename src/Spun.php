@@ -4,9 +4,9 @@ namespace Mchljams\Spun;
 use Mchljams\Spun\Fingerprint;
 
 /**
- * This class parses a strign containing spintax syntax.
+ * This class parses a string containing spintax syntax.
  *
- * @copyright  2017 Michael James
+ * @copyright  2021 Michael James
  * @license    https://opensource.org/licenses/MIT   MIT
  * @link       https://github.com/mchljams/spun
  * @since      Class available since Release 0.0.1
@@ -90,16 +90,12 @@ class Spun
     /* get random string from array of strings */
     private function chooseRandom($choices)
     {
-        // get number of choices
-        $num_choices = count($choices);
-        // generate a random number based on the number of choices
-        $random_number = (rand(1, $num_choices)) - 1;
-        // make a choice from the array
-        $choice = $choices[$random_number];
-        // add choice index into fingerprint
-        $this->sequence[] = $random_number;
-        // returns the single choice string
-        return $choice;
+        // get a random index from the given array
+        $index = array_rand($choices, 1);
+        // add the array index into the sequence
+        $this->sequence[] = $index;
+        // return the choice
+        return $choices[$index];
     }
 
     private function getChoicesAsArray()
