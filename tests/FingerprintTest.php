@@ -2,13 +2,15 @@
 
 namespace Mchljams\Spun;
 
-class FingerprintTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class FingerprintTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
     }
 
@@ -19,7 +21,7 @@ class FingerprintTest extends \PHPUnit_Framework_TestCase
         $spun_fingerprint = $spun->fingerprint()->get();
 
         $fingerprint = new Fingerprint($spun);
-        $this->assertInternalType('boolean', $fingerprint->compare($spun_fingerprint));
+        $this->assertIsBool($fingerprint->compare($spun_fingerprint));
     }
 
     public function testCompareReturnsTrue()

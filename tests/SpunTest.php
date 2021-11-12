@@ -2,16 +2,18 @@
 
 namespace Mchljams\Spun;
 
-class SpunTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class SpunTest extends TestCase
 {
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->one_group = "This is a string that {includes|contains|holds} choices you can spin.";
         $this->two_groups = "This is a {sentence|string} that {includes|contains|holds} choices you can spin.";
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
     }
 
@@ -26,19 +28,19 @@ class SpunTest extends \PHPUnit_Framework_TestCase
     public function testGetStrReturnsString()
     {
         $spun = new Spun($this->one_group);
-        $this->assertInternalType('string', $spun->getStr());
+        $this->assertIsString($spun->getStr());
     }
 
     public function testGetSequenceReturnsArray()
     {
         $spun = new Spun($this->one_group);
-        $this->assertInternalType('array', $spun->getSequence());
+        $this->assertIsArray($spun->getSequence());
     }
 
     public function testCombinationsReturnsInt()
     {
         $spun = new Spun($this->one_group);
-        $this->assertInternalType('int', $spun->combinations());
+        $this->assertIsInt($spun->combinations());
     }
 
     public function testCombinationsReturnsCorrectTotalNoGroups()
@@ -62,7 +64,7 @@ class SpunTest extends \PHPUnit_Framework_TestCase
     public function testFingerprintReturnsObject()
     {
         $spun = new Spun($this->one_group);
-        $this->assertInternalType('object', $spun->fingerprint());
+        $this->assertIsObject($spun->fingerprint());
     }
 
     public function testRepeatReturnsString()
@@ -70,7 +72,7 @@ class SpunTest extends \PHPUnit_Framework_TestCase
         $str = "This is a string that {includes|contains|holds} choices you can spin.";
         $spun = new Spun($str);
         $new_str = $spun->spin();
-        $this->assertInternalType('string', $spun->repeat($spun->fingerprint()->get()));
+        $this->assertIsString($spun->repeat($spun->fingerprint()->get()));
     }
 
     public function testRepeatFingerprintException()
