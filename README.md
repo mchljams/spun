@@ -49,5 +49,5 @@ Code Linting
 Developed using the PSR-2 Standard
 
 ```
-./vendor/bin/phpcs --standard=PSR2 ./src
+./vendor/bin/phpcs --standard=PSR12 ./src
 ```
