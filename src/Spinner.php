@@ -16,20 +16,29 @@ use Mchljams\Spun\Candidate;
  */
 class Spinner
 {
-    // the string containing spintax
+    /** @var string */
     private $str;
-
+    /** @var Configuration */
     private $configuration;
-
+    /**  @var Candidates */
     private $candidates;
 
     /**
      * @param string   $str  A string that may contain spintax
+     * @param Configuration $configuration The spinner configuration
      *
      * @throws Exception if input is not a string
+     * 
+     * @return void
      */
-    public function __construct($str, Configuration $configuration = null)
+    public function __construct(string $str, Configuration $configuration = null)
     {
+        // check to make sure input is a string
+        if (!is_string($str)) {
+            // if its not a string thow an exception
+            throw new \Exception('Constructor first argument must be a string');
+        }
+        
         $this->str = $str;
 
         $this->configuration = $configuration ?? new Configuration();
@@ -38,7 +47,11 @@ class Spinner
     }
 
     /**
-     * gets the replacement candidate strings
+     * Finds the candidate strings from the original input string
+     * 
+     * @param string $str A string of text that may contain spintax
+     * 
+     * @return Candidates Object containing the original candidates and thier corresponding replacements
      */
     private function discover(string $str): Candidates
     {
@@ -63,8 +76,9 @@ class Spinner
     }
 
     /**
-     * takes the candidate replacement strings and choices, and makes the replacements
-     * returns the modified string
+     * Makes the spintax replacements.
+     * 
+     * @return string The string result after spintax replacements are made.
      */
     public function spin(): string
     {
