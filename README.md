@@ -23,25 +23,13 @@ $result = $spinner->spin();
 Change directory to the root of this package and run:
 
 ```
-composer test
+composer unit_test
 ```
 
-**Run Unit Tests With HTML Coverage Report**
+### Code Linting
+
+Developed using the PSR-12 Standard, checked with [PHP Codesniffer](https://github.com/squizlabs/PHP_CodeSniffer). Change directory to the root of this package and run:
 
 ```
-./vendor/bin/phpunit --coverage-html coverage
-```
-
-```
-phpdbg -qrr ./vendor/bin/phpunit --coverage-html coverage
-```
-
-Code Linting
------
-**Using PHP_CodeSniffer**
-
-Developed using the PSR-12 Standard
-
-```
-./vendor/bin/phpcs --standard=PSR12 --tab-width=4 --colors ./src
+composer standards_check
 ```
