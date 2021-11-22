@@ -17,16 +17,20 @@ class Candidates
 
     private $items = [];
 
-    public function append(Candidate $candidate)
+    public function append(Candidate $candidate): void
     {
         $this->items[] = $candidate;
     }
 
+    public function count(): int
+    {
+        return count($this->items);
+    }
 
-/**
- * Returns an array of the original candidate strings
- */
-    public function candidates()
+    /**
+     * Returns an array of the original candidate strings
+     */
+    public function all(): array
     {
         $candidates = [];
 
@@ -37,10 +41,10 @@ class Candidates
         return $candidates;
     }
 
-/**
- * Returns an array of the choices from the candidates
- */
-    public function choices()
+    /**
+     * Returns an array of the choices from the candidates
+     */
+    public function choices(): array
     {
         $choices = [];
 

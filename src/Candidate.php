@@ -28,7 +28,7 @@ class Candidate
         // check to make sure input is a string
         if (!is_string($str)) {
             // if its not a string thow an exception
-            throw new \Exception('You must start with a string.');
+            throw new \Exception('Constructor first argument must be a string');
         }
 
         $this->configuration = $configuration ?? new Configuration();
@@ -48,10 +48,10 @@ class Candidate
      *
      * @return String the string result with the opening and closing anchors removed
      */
-    private function removeAnchors($str)
+    private function removeAnchors()
     {
         // trim opening character
-        $str = trim($str, $this->configuration->getOpeningAnchor());
+        $str = trim($this->str, $this->configuration->getOpeningAnchor());
         // trim closing character
         $str = trim($str, $this->configuration->getClosingAnchor());
         // return the string without the opening and closing characters

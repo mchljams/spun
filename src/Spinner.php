@@ -69,7 +69,7 @@ class Spinner
     public function spin(): string
     {
         return str_replace(
-            $this->candidates->candidates(),
+            $this->candidates->all(),
             $this->candidates->choices(),
             $this->str
         );

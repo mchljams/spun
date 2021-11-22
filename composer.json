@@ -2,7 +2,7 @@
     "name": "mchljams/spun",
     "type": "library",
     "description": "PHP Library to process strings containing spintax syntax.",
-    "keywords": ["spintax"],
+    "keywords": ["spintax", "text spinner"],
     "homepage": "https://github.com/mchljams/spun/",
     "license": "MIT",
     "authors": [
@@ -23,5 +23,9 @@
         "psr-4": {
             "Mchljams\\Spun\\": "src"
         }
+    },
+    "scripts": {
+        "unit_test": "phpdbg -qrr ./vendor/bin/phpunit --coverage-html coverage",
+        "standards_check": "./vendor/bin/phpcs --standard=PSR12 --tab-width=4 --colors ./src ./tests"
     }
 }

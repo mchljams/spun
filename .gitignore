@@ -1,5 +1,2 @@
-
-# exclude the composer vendor directory
 vendor/
-# exclude the phpunit html coverage report
 coverage/
