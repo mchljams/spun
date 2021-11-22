@@ -2,6 +2,8 @@
 
 namespace Mchljams\Spun;
 
+use Mchljams\Spun\Configuration;
+
 /**
  * Spin string candidate.
  *
@@ -12,16 +14,20 @@ namespace Mchljams\Spun;
  */
 class Candidate
 {
-    // the candidate string
+    /** @var string */
     private $str;
-    // array of choices from the original string
+    /** @var array */
     private $choices = [];
-    // opening anchor
+    /** @var Configuration */
     private $configuration;
 
     /**
-     * @param String a canditate string
-     * @param Configuration
+     * @param string A canditate string
+     * @param Configuration The spinner configuration
+     *
+     * @throws Exception if first input argument is not a string
+     *
+     * @return void
      */
     public function __construct($str, Configuration $configuration)
     {
@@ -30,12 +36,10 @@ class Candidate
             // if its not a string thow an exception
             throw new \Exception('Constructor first argument must be a string');
         }
-
+        // if no configuration provided create default instance
         $this->configuration = $configuration ?? new Configuration();
-
         // set the candidate string
         $this->str = $str;
-
         // get the choices as an array
         $this->choices = $this->getChoices($this->removeAnchors($str));
     }
@@ -44,23 +48,29 @@ class Candidate
      * Removes the opening and closing anchors,
      * then returns the resulting string
      *
-     * @param String a candidate string
+     * @param string $str The original candidate string
      *
-     * @return String the string result with the opening and closing anchors removed
+     * @return string the string result with the opening and closing anchors removed
      */
-    private function removeAnchors()
+    private function removeAnchors($str): string
     {
         // trim opening character
-        $str = trim($this->str, $this->configuration->getOpeningAnchor());
+        $str = trim($str, $this->configuration->getOpeningAnchor());
         // trim closing character
         $str = trim($str, $this->configuration->getClosingAnchor());
         // return the string without the opening and closing characters
         return $str;
     }
 
-    /* takes a string separated by a specified separator and
-    splits it, returns array of candidate strings */
-    private function getChoices($candidate)
+    /**
+     * Takes a string separated by a specified separator and
+     * splits it, returns array of candidate strings.
+     *
+     * @param string $str The original candidate string
+     *
+     * @return array The resulting choices from the candidate string
+     */
+    private function getChoices($candidate): array
     {
         // convert string to array of choices
         $choices = explode($this->configuration->getSeparationCharacter(), $candidate);
@@ -68,12 +78,22 @@ class Candidate
         return $choices;
     }
 
-    public function original()
+    /**
+     * Get the original candidate string.
+     *
+     * @return string The original candidate string
+     */
+    public function original(): string
     {
         return $this->str;
     }
 
-    public function choose()
+    /**
+     * Make the random choice from the candidate string
+     *
+     * @return string A random choice made from the candidate string
+     */
+    public function choose(): string
     {
         // get a random index from the given array
         $index = array_rand($this->choices, 1);

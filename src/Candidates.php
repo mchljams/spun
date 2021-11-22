@@ -5,7 +5,7 @@ namespace Mchljams\Spun;
 use Mchljams\Spun\Candidate;
 
 /**
- * Spin string candidate.
+ * Object to collect candidate objects.
  *
  * @copyright  2021 Michael James
  * @license    https://opensource.org/licenses/MIT   MIT
@@ -14,14 +14,24 @@ use Mchljams\Spun\Candidate;
  */
 class Candidates
 {
-
+    /** @var array */
     private $items = [];
 
+    /**
+     * Add a candidate to the collection
+     *
+     * @return void
+     */
     public function append(Candidate $candidate): void
     {
         $this->items[] = $candidate;
     }
 
+    /**
+     * Count the candidates added to the collection
+     *
+     * @return int The number of candidates in the collection
+     */
     public function count(): int
     {
         return count($this->items);
@@ -29,6 +39,8 @@ class Candidates
 
     /**
      * Returns an array of the original candidate strings
+     *
+     * @return array An array of the original candidate strings
      */
     public function all(): array
     {
@@ -43,6 +55,8 @@ class Candidates
 
     /**
      * Returns an array of the choices from the candidates
+     *
+     * @return array An array of the choices made from the original candidate strings
      */
     public function choices(): array
     {

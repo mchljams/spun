@@ -52,6 +52,13 @@ class SpinnerTest extends TestCase
         $this->spinner = null;
     }
 
+    public function testConstructorFirstArgmentIsString()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Constructor first argument must be a string');
+        $spinner = new Spinner(123);
+    }
+
     public function testSpin()
     {
         $this->assertTrue(str_contains($this->str, $this->candidateStr));

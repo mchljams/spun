@@ -7,7 +7,7 @@ use Mchljams\Spun\Candidates;
 use Mchljams\Spun\Candidate;
 
 /**
- * Spin string candidate.
+ * A text string containing spintax may be spun using this class.
  *
  * @copyright  2021 Michael James
  * @license    https://opensource.org/licenses/MIT   MIT
@@ -27,18 +27,18 @@ class Spinner
      * @param string   $str  A string that may contain spintax
      * @param Configuration $configuration The spinner configuration
      *
-     * @throws Exception if input is not a string
-     * 
+     * @throws Exception if first input argument is not a string
+     *
      * @return void
      */
-    public function __construct(string $str, Configuration $configuration = null)
+    public function __construct($str, Configuration $configuration = null)
     {
         // check to make sure input is a string
         if (!is_string($str)) {
             // if its not a string thow an exception
             throw new \Exception('Constructor first argument must be a string');
         }
-        
+
         $this->str = $str;
 
         $this->configuration = $configuration ?? new Configuration();
@@ -48,9 +48,9 @@ class Spinner
 
     /**
      * Finds the candidate strings from the original input string
-     * 
+     *
      * @param string $str A string of text that may contain spintax
-     * 
+     *
      * @return Candidates Object containing the original candidates and thier corresponding replacements
      */
     private function discover(string $str): Candidates
@@ -77,7 +77,7 @@ class Spinner
 
     /**
      * Makes the spintax replacements.
-     * 
+     *
      * @return string The string result after spintax replacements are made.
      */
     public function spin(): string
